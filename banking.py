@@ -76,8 +76,8 @@ if __name__ == "__main__":
     df_kmean = knmeans(X_transformed, df.copy())
     df_dbscan = dbscan(X_transformed, df.copy())
     try:
-        subir_tabla(df_kmean, df_kmean)
-        subir_tabla(df_dbscan,df_dbscan)
+        subir_tabla(df_kmean, "df_kmean")
+        subir_tabla(df_dbscan,"df_dbscan")
     except Exception as e:
         username = os.getenv("POSTGRES_USER")
         password = os.getenv("POSTGRES_PASSWORD")
