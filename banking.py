@@ -40,9 +40,9 @@ def knmeans(X_transformed,df):
     threshold_995 = np.percentile(distances, 99.5)
 
     df_kmean['is_fraud'] = df_kmean['distance_to_centroid'] >= threshold_995
-    df_kmean['is_fraud'].value_counts(normalize=True)
 
-    return df_kmean
+
+    return df_kmean[['TransactionID','is_fraud']]
 
 def dbscan(X_transformed, df):
     k = 4  # igual a min_samples, 2 x la dim
@@ -56,10 +56,11 @@ def dbscan(X_transformed, df):
     db_labels = dbscan.fit_predict(X_transformed)
     df_dbscan = df.copy()
 
-    df_dbscan['dbscan_cluster'] = db_labels
-    df_dbscan['dbscan_cluster'].value_counts()
+    df_dbscan['is_fraud'] = db_labels
+    df_dbscan['is_fraud'] = df_dbscan['is_fraud'].replace(0,False)
+    df_dbscan['is_fraud'] = df_dbscan['is_fraud'].replace(1,True)
 
-    return df_dbscan
+    return df_dbscan[['TransactionID','is_fraud']]
 
 def subir_tabla(df, nombre):
     username = os.getenv("POSTGRES_USER")
