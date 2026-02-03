@@ -75,12 +75,6 @@ if __name__ == "__main__":
     X_transformed, df = obtener_datos()
     df_kmean = knmeans(X_transformed, df.copy())
     df_dbscan = dbscan(X_transformed, df.copy())
-    try:
-        subir_tabla(df_kmean, "df_kmean")
-        subir_tabla(df_dbscan,"df_dbscan")
-    except Exception as e:
-        username = os.getenv("POSTGRES_USER")
-        password = os.getenv("POSTGRES_PASSWORD")
-        db_url = f"postgresql://{username}:{password}@localhost:5432/bi_demo"
-        print(f'El usuario es {username}\nLa contraseña es {password}\nY el link a la conexión es {db_url}')
-        print(f'\n\n{e}')
+
+    subir_tabla(df_kmean, "df_kmean")
+    subir_tabla(df_dbscan,"df_dbscan")
