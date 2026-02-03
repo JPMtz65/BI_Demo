@@ -57,8 +57,6 @@ def dbscan(X_transformed, df):
     df_dbscan = df.copy()
 
     df_dbscan['is_fraud'] = db_labels
-    df_dbscan['is_fraud'] = df_dbscan['is_fraud'].replace(0,False)
-    df_dbscan['is_fraud'] = df_dbscan['is_fraud'].replace(1,True)
 
     return df_dbscan[['TransactionID','is_fraud']]
 
