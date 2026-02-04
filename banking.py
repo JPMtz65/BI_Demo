@@ -36,13 +36,15 @@ def knmeans(X_transformed,df):
     )
 
     df_kmean = df.copy()
+
+    df_kmean['label'] = labels_3
     df_kmean['distance_to_centroid'] = distances
     threshold_995 = np.percentile(distances, 99.5)
 
     df_kmean['is_fraud'] = df_kmean['distance_to_centroid'] >= threshold_995
 
 
-    return df_kmean[['TransactionID','is_fraud']]
+    return df_kmean[['TransactionID','label','is_fraud']], centers_3
 
 def dbscan(X_transformed, df):
     k = 4  # igual a min_samples, 2 x la dim
@@ -72,8 +74,9 @@ def subir_tabla(df, nombre):
 
 if __name__ == "__main__":
     X_transformed, df = obtener_datos()
-    df_kmean = knmeans(X_transformed, df.copy())
+    df_kmean, centros = knmeans(X_transformed, df.copy())
     df_dbscan = dbscan(X_transformed, df.copy())
 
     subir_tabla(df_kmean, "df_kmean")
+    subir_tabla(centros, "centros_kmean")
     subir_tabla(df_dbscan,"df_dbscan")
