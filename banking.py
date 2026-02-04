@@ -78,5 +78,5 @@ if __name__ == "__main__":
     df_dbscan = dbscan(X_transformed, df.copy())
 
     subir_tabla(df_kmean, "df_kmean")
-    subir_tabla(centros, "centros_kmean")
+    subir_tabla(pd.DataFrame(centros), "centros_kmean")
     subir_tabla(df_dbscan,"df_dbscan")
